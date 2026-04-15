@@ -1,4 +1,4 @@
-# claudesy-devkit
+# Claudesy-DevKit 2026
 
 **Centralized Workflow Standardization Toolkit for Healthcare-Oriented Artificial Intelligence Development**
 
@@ -247,6 +247,5 @@ Feature proposals and major changes to the toolkit's behavior should be accompan
 ---
 
 <p align="center">
-  <sub>Originally developed under the <strong>Professor of Law &amp; Medical</strong> governance framework</sub><br/>
   <sub>Open-source under the Apache License 2.0</sub>
 </p>
