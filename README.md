@@ -16,7 +16,7 @@
 <table>
   <tr>
     <td width="30%" align="center" valign="middle">
-      <img src="https://github.com/Docsynapse/claudesy-devkit/blob/main/templates/github/workflows/claudesy.png?raw=true" alt="Claudesy" width="220"/>
+      <img src="https://github.com/Claudesy/claudesy-devkit/blob/main/templates/github/workflows/claudesy.png?raw=true" alt="Claudesy" width="220"/>
       <br/><br/>
       <strong>DR. CLAUDESY</strong>
     </td>

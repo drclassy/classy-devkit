@@ -1,0 +1,85 @@
+name: CI
+
+# claudesy-devkit eats its own dog food.
+# This workflow validates the templates and manifests in this repo.
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - '**.md'
+      - 'LICENSE'
+  pull_request:
+    branches: [main]
+    paths-ignore:
+      - '**.md'
+      - 'LICENSE'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate Templates & Manifests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate JSON manifests
+        run: |
+          echo "Validating JSON manifests..."
+          for f in manifests/*.json renovate.json; do
+            echo "  checking $f"
+            python3 -m json.tool "$f" > /dev/null && echo "  ✓ $f" || { echo "  ✗ $f is invalid JSON"; exit 1; }
+          done
+
+      - name: Validate YAML workflow templates
+        run: |
+          pip install pyyaml --quiet
+          echo "Validating YAML workflow templates..."
+          python3 -c "
+          import yaml, sys, glob
+          failed = False
+          for path in glob.glob('templates/github/workflows/*.yml'):
+              try:
+                  with open(path) as f:
+                      yaml.safe_load(f)
+                  print(f'  \u2713 {path}')
+              except yaml.YAMLError as e:
+                  print(f'  \u2717 {path}: {e}')
+                  failed = True
+          if failed:
+              sys.exit(1)
+          "
+
+      - name: Check required template files exist
+        run: |
+          echo "Checking required files..."
+          required=(
+            "templates/github/workflows/ci.yml"
+            "templates/github/workflows/security-scan.yml"
+            "templates/github/workflows/auto-fix.yml"
+            "templates/github/workflows/auto-merge.yml"
+            "templates/hooks/pre-push.ps1"
+            "templates/hooks/pre-push.sh"
+            "scripts/generate.ps1"
+            "scripts/sync.ps1"
+            "scripts/validate.ps1"
+            "scripts/detect-stack.ps1"
+            "manifests/nextjs.json"
+            "manifests/nestjs.json"
+            "manifests/turborepo.json"
+            "manifests/node.json"
+            "renovate.json"
+          )
+          for f in "${required[@]}"; do
+            if [ -f "$f" ]; then
+              echo "  ✓ $f"
+            else
+              echo "  ✗ MISSING: $f"
+              exit 1
+            fi
+          done
+          echo "All required files present."
