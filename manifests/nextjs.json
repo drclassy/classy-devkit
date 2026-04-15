@@ -1,0 +1,19 @@
+{
+  "stack": "NEXTJS",
+  "description": "Next.js project configuration overrides for claudesy-devkit",
+  "ci": {
+    "build_command": "pnpm run build",
+    "test_command": "pnpm run test",
+    "lint_command": "pnpm run lint"
+  },
+  "paths_ignore_extra": [
+    ".next/**",
+    "out/**",
+    "public/**"
+  ],
+  "notes": [
+    "next.config.js / next.config.ts detected",
+    "Build output is in .next/ — already in upload-artifact path",
+    "Set NEXT_PUBLIC_* env vars as GitHub Actions vars (not secrets)"
+  ]
+}

@@ -1,0 +1,17 @@
+# claudesy-devkit .gitattributes
+# Shell scripts must stay LF — Windows Git would break them if converted to CRLF
+
+* text=auto
+
+# Force LF for shell scripts (bash will fail with CRLF on Linux/Mac CI)
+*.sh text eol=lf
+
+# Force LF for YAML (GitHub Actions parses these on Linux runners)
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# PowerShell can handle CRLF on Windows (auto)
+*.ps1 text eol=crlf
+
+# JSON — auto
+*.json text eol=lf

@@ -1,0 +1,32 @@
+name: Auto-Merge Renovate Patches
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+jobs:
+  auto-merge:
+    name: Auto-Merge Patch Updates
+    runs-on: ubuntu-latest
+    if: github.actor == 'renovate[bot]'
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Check update type
+        id: check
+        run: |
+          TITLE="${{ github.event.pull_request.title }}"
+          if echo "$TITLE" | grep -qE "(patch|chore\(deps\))"; then
+            echo "is_patch=true" >> $GITHUB_OUTPUT
+          else
+            echo "is_patch=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Enable auto-merge for patch PRs
+        if: steps.check.outputs.is_patch == 'true'
+        run: gh pr merge --auto --squash "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

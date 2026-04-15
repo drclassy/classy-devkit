@@ -1,0 +1,16 @@
+{
+  "stack": "TURBOREPO",
+  "description": "Turborepo monorepo configuration overrides for claudesy-devkit",
+  "ci": {
+    "build_command": "pnpm turbo run build --filter=[HEAD^1]",
+    "test_command": "pnpm turbo run test --filter=[HEAD^1]",
+    "lint_command": "pnpm turbo run lint --filter=[HEAD^1]"
+  },
+  "paths_ignore_extra": [],
+  "notes": [
+    "turbo.json detected — HEAD^1 filter applied to all turbo commands",
+    "Set TURBO_TOKEN + TURBO_TEAM as GitHub Actions secrets for remote caching",
+    "pnpm version is read from packageManager field in root package.json",
+    "Use pnpm/action-setup@v4 — reads packageManager automatically, no version pin needed"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "stack": "NODE",
+  "description": "Plain Node.js project configuration overrides for claudesy-devkit",
+  "ci": {
+    "build_command": "pnpm run build",
+    "test_command": "pnpm run test",
+    "lint_command": "pnpm run lint"
+  },
+  "paths_ignore_extra": [
+    "dist/**",
+    "build/**"
+  ],
+  "notes": [
+    "No framework-specific config detected — using plain Node defaults",
+    "If this is actually Next.js or NestJS, run detect-stack.ps1 to re-check"
+  ]
+}

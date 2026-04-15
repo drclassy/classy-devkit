@@ -1,0 +1,18 @@
+{
+  "stack": "NESTJS",
+  "description": "NestJS project configuration overrides for claudesy-devkit",
+  "ci": {
+    "build_command": "pnpm run build",
+    "test_command": "pnpm run test:cov",
+    "lint_command": "pnpm run lint"
+  },
+  "paths_ignore_extra": [
+    "dist/**"
+  ],
+  "notes": [
+    "nest-cli.json detected",
+    "Build output is in dist/ — already in upload-artifact path",
+    "For apps with database: add 'prisma generate' before build in ci.yml",
+    "PHI/PII fields must use @Exclude() decorator — enforced by linter rules"
+  ]
+}

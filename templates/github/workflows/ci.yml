@@ -1,0 +1,164 @@
+name: CI
+
+# Generic CI template from claudesy-devkit.
+# Proven patterns extracted from abyss-monorepo:
+#   - paths-ignore for docs/assets (skip unnecessary runs)
+#   - HEAD^1 fallback for Turborepo --filter (safe on first commit)
+#   - concurrency group with cancel-in-progress (save runner minutes)
+#   - Job order: verify → build → (test + lint in parallel) → done
+
+on:
+  push:
+    branches: [main, develop]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - '.github/*.png'
+      - '.github/*.svg'
+  pull_request:
+    branches: [main, develop]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: '22'
+
+jobs:
+  verify:
+    name: Verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      # Add project-specific pre-flight checks here.
+      # Example: pnpm --filter @myorg/gatekeeper run start
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    needs: verify
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      # HEAD^1 fallback: safe on repos with a single commit (no parent).
+      # With Turborepo: only builds packages changed since last commit.
+      # Without Turborepo: replace with `pnpm run build`.
+      - name: Build
+        run: |
+          if git rev-parse HEAD^1 >/dev/null 2>&1; then
+            pnpm turbo run build --filter=[HEAD^1]
+          else
+            pnpm turbo run build
+          fi
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: |
+            apps/**/dist
+            apps/**/.next
+            packages/**/dist
+          retention-days: 7
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Download Build Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-output
+
+      - name: Test
+        run: |
+          if git rev-parse HEAD^1 >/dev/null 2>&1; then
+            pnpm turbo run test --filter=[HEAD^1]
+          else
+            pnpm turbo run test
+          fi
+
+      - name: Upload Coverage
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coverage
+          path: '**/coverage'
+          retention-days: 7
+
+  lint:
+    name: Lint & Format Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: verify
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: |
+          if git rev-parse HEAD^1 >/dev/null 2>&1; then
+            pnpm turbo run lint --filter=[HEAD^1]
+          else
+            pnpm turbo run lint
+          fi
+
+      - name: Format Check
+        run: pnpm format:check
