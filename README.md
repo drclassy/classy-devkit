@@ -8,6 +8,17 @@ The toolkit is developed and governed under the oversight of **Professor of Law 
 
 ---
 
+## Overview
+
+![Claudesy](https://github.com/Docsynapse/claudesy-devkit/blob/main/templates/github/workflows/claudesy.png?raw=true)
+
+`claudesy-devkit` automates the onboarding of existing repositories by:
+- detecting the underlying tech stack (TypeScript, Node, Next, Nest, Turbo, etc.),
+- injecting deterministic CI/CD workflows and pre‑push validation hooks,
+- and enforcing dependency‑maintenance policies via Renovate.
+
+The result is immediate alignment with Sentra AI’s engineering, security, and clinical‑legal posture, without requiring developers to manually configure or memorize templates.
+
 ## 📚 Problem context
 
 In healthcare‑adjacent AI systems, inconsistent CI/CD pipelines, ad‑hoc linting, and variable security controls create:
