@@ -1,47 +1,78 @@
+# claudesy‑devkit
 
-```markdown
-# claudesy-devkit
+**Centralized workflow standardization toolkit for Sentra AI healthcare‑oriented developments.**
 
-Centralized workflow standardization toolkit for Sentra AI developments.
+`claudesy-devkit` is a deterministic automation suite designed to standardize code quality, security, and CI/CD practices across heterogeneous repositories at Sentra Artificial Intelligence. It ensures that every healthcare‑facing AI project—regardless of tech stack—inherits the same engineering, safety, and governance standards without manual configuration drift.
 
-**Description:** Ensuring consistent CI/CD pipelines, robust security protocols, and code quality standards across diverse healthcare AI projects is complex and error-prone. `claudesy-devkit` solves this by automating the onboarding of existing repositories, injecting deterministic configurations, pre-push hooks, and dependency management policies tailored to the detected tech stack. This approach provides immediate compliance and standardization without manual setup.
-
-**Principles:** Deterministic tools, minimum configuration, maximum security coverage for healthcare AI.
+The toolkit is developed and governed under the oversight of **Professor of Law & Medical**, reflecting Sentra AI’s commitment to **regulatory‑aware, auditable, and safety‑oriented AI development**.
 
 ---
 
-## 🧩 Workflow Overview
+## 📚 Problem context
 
-`claudesy-devkit` orchestrates repository standardization through four key paths: stack detection, validation hooks installation, automated workflow injection, and dependency maintenance.
+In healthcare‑adjacent AI systems, inconsistent CI/CD pipelines, ad‑hoc linting, and variable security controls create:
+- elevated compliance risk,
+- harder auditability,
+- and increased operational friction across teams.
+
+`claudesy-devkit` solves this by:
+- detecting the underlying tech stack (TypeScript, Node, Next, Nest, etc.),
+- injecting standardized workflows and pre‑push validation hooks,
+- and enforcing automated dependency‑maintenance policies via Renovate.
+
+The result: **immediate alignment with Sentra AI’s engineering and regulatory posture**, without requiring developers to memorize or manually configure templates.
+
+---
+
+## 🧭 Core principles
+
+- **Deterministic tooling**: Every repository that runs `claudesy-devkit` receives the same, predictable configuration set.
+- **Minimum configuration, maximum coverage**: Developers provide minimal input; the kit configures linting, formatting, type‑checking, CI workflows, and security scanning.
+- **Healthcare‑grade security baseline**: Security‑scan and auto‑fix workflows are installed by default, with clear audit trails compatible with legal, clinical, and regulatory requirements.
+
+---
+
+## 🧩 Complete workflow diagram
+
+The following Mermaid diagram captures the **full lifecycle** of `claudesy-devkit` from repository bootstrapping to production‑ready workflows.
 
 ```mermaid
 graph TD
-    User[Developer] -->|Executes| Boot[.\scripts\bootstrap.ps1]
+    User[Developer] -->|Executes| Boot[.\\scripts\\bootstrap.ps1]
     Boot --> Hub[claudesy-devkit<br/>Automation Hub]
 
-    %% Paths based on visual diagram
+    %% Path 1: Stack detection
     Hub --> P1[Path 1:<br/>Stack Detection]
-    P1 --> Detect["Analyze:<br/>Turbo / Next / Nest / Node"]
-    Detect -->|Identified| Verified
+    P1 --> Detect["Analyze:<br/>Turbo / Next / Nest / Node / etc."]
+    Detect -->|Stack Identified| Verified
 
+    %% Path 2: Hook installation
     Hub --> P2[Path 2:<br/>Hooks Installation]
     P2 --> Hooks[Pre-push Validation Hooks]
     Hooks -->|Check| TSC[Type Check]
     Hooks -->|Check| LNT[Lint ESLint]
     Hooks -->|Check| FMT[Format Prettier]
+    Hooks -->|Check| DST[Static Security Checks]
 
+    %% Path 3: CI/CD workflow injection
     Hub --> P3[Path 3:<br/>Workflow Injection]
     P3 --> Actions[Configuring GitHub Actions]
-    Actions -->|Inject| W1[ci.yml]
-    Actions -->|Inject| W2[security-scan.yml]
-    Actions -->|Inject| W3[auto-fix.yml]
-    Actions -->|Inject| W4[auto-merge.yml]
+    Actions -->|Inject| W1[ci.yml<br/>Build & Test]
+    Actions -->|Inject| W2[security-scan.yml<br/>SAST & SBOM]
+    Actions -->|Inject| W3[auto-fix.yml<br/>Automated Corrections]
+    Actions -->|Inject| W4[auto-merge.yml<br/>Policy‑based PR merging]
 
+    %% Path 4: Dependency automation
     Hub --> P4[Path 4:<br/>Dependency Automation]
     P4 --> Reno[Initialize Renovate]
     Reno -->|Policy| Pol1[Patch: Auto-merge]
     Reno -->|Policy| Pol2[Minor: Weekly Grouped]
-    Reno -->|Policy| Pol3[Major: Manual Review]
+    Reno -->|Policy| Pol3[Major: Manual Review + Legal/Regulatory Check]
+
+    %% Governance & Compliance
+    P4 --> Gov[Governance Layer]
+    Gov -->|Audit Trail| ARCH[Archival Logs]
+    Gov -->|Policy Snapshot| SNAP[Configuration Snapshots]
 
     %% Output
     P1 -.-> Output[Standardized<br/>Sentra AI Repository]
@@ -53,139 +84,172 @@ graph TD
 
 ---
 
-## 🚀 Quickstart (5 Minutes)
+## 🧱 Architecture and mechanisms
 
-Use this guide to standardize an existing repository.
+- **Bootstrapping script**:  
+  The entry point is `.\\scripts\\bootstrap.ps1`, which:
+  - detects the current repository’s tech stack,
+  - collects configuration hints (e.g., `package.json`, `nest`, `next`, `turbo` flags),
+  - and orchestrates the injection of hooks and workflows.
 
-### 1. Close the Devkit repository
-```powershell
-git clone [https://github.com/Claudesy/claudesy-devkit.git](https://github.com/Claudesy/claudesy-devkit.git)
-cd claudesy-devkit
-```
+- **Stack detection engine**:  
+  Analyzes file structure and manifests to infer:
+  - whether the project is Next.js, NestJS, Turbo‑monorepo, plain Node, or other identified patterns.
+  - Based on the detected stack, it selects appropriate linting, testing, and security rules.
 
-### 2. Run the Initialization Script
-Execute the bootstrap script targeting your desired repository.
+- **Pre‑push validation hooks**:  
+  Injected Git hooks ensure that, before any push, a commit:
+  - passes type checking,
+  - respects linting rules,
+  - conforms to defined formatting standards,
+  - and satisfies basic security checks (e.g., credentials, secrets, dangerous patterns).
 
-```powershell
-.\scripts\bootstrap.ps1 -TargetRepo "../path/to/your/repo" -Stack "AUTO"
-```
+- **CI/CD workflow injection**:  
+  The toolkit populates:
+  - `ci.yml`: standardized build and test pipeline across all repos.
+  - `security-scan.yml`: static application security testing and dependency scanning.
+  - `auto-fix.yml`: automated corrective actions for common lint/security issues.
+  - `auto-merge.yml`: policy‑driven merge automation aligned with engineering and compliance rules.
 
-The automation hub will execute:
-- **Stack Detection:** Auto-detects Turborepo, Next.js, or NestJS environments.
-- **Hook Installation:** Installs pre-push hooks for TypeScript, ESLint, and Prettier.
-- **Workflow Injection:** Copes standardized `.github/workflows` to the target repo.
-
-### 3. Push and Verify CI
-Navigate to your target repository, commit the changes made by the devkit, and push.
-
-```bash
-cd ../path/to/your/repo
-git add .
-git commit -m "chore: inject standardized devkit workflows"
-git push
-```
-
-### 4. Required Secrets Configuration
-To enable all paths of the CI/CD pipeline (especially Path 3: Security & Auto-Fix), configure the following repository secrets.
-
-| Secret | Function | Required? |
-|--------|--------|-----------|
-| `SEMGREP_APP_TOKEN` | SAST dashboard integration | Optional |
-| `SNYK_TOKEN` | SCA vulnerability scanning | Optional |
-| `TRUFFLEHOG_REPO_TOKEN` | Verified secret scanning | **Yes** |
-| `TURBO_TOKEN` | Remote Caching (Turborepo only) | Mandatory for Turbo |
-| `TURBO_TEAM` | Team identifier (Turborepo only) | Mandatory for Turbo |
-
-**Setup Path:** GitHub Repository → Settings → Secrets and variables → Actions
-
-### 5. Dependency Automation (Renovate)
-Enable the Renovate application to automatically manage dependency updates based on the devkit's predefined policies.
-
-Install App: [https://github.com/apps/renovate](https://github.com/apps/renovate)
+- **Dependency automation with Renovate**:  
+  The system initializes Renovate with preset policies:
+  - **Patch updates**: auto‑merge for fast‑fixing vulnerabilities.
+  - **Minor updates**: bundled weekly to reduce noise while maintaining freshness.
+  - **Major updates**: require manual review and, where applicable, **legal and regulatory review** before merge.
 
 ---
 
-## 📦 Delivered Automation
+## 🛠 Setup and installation
 
-### GitHub Actions Workflows (Path 3)
-| Workflow File | Function | Visualized Components |
-|------|--------|---|
-| `ci.yml` | Full pipeline: build, test, lint. | CI Pipeline flow |
-| `security-scan.yml` | Parallel SAST, DAST, and secret detection. | Semgrep / TruffleHog / Trivy |
-| `auto-fix.yml` | Fixes linting/formatting errors on specific events. | ESLint / Prettier fixes |
-| `auto-merge.yml` | Handles automated merging of non-breaking patches. | Post-CI Auto-merge |
+### Prerequisites
 
-### Pre-Push Hooks (Path 2)
-The following validations are enforced locally before allowing a `git push`:
-- **TypeScript Verification:** Prevents type errors.
-- **ESLint Validation:** Enforces code quality rules.
-- **Prettier Formatting:** Ensures consistent code style.
+- Windows PowerShell (for initial bootstrapping; future cross‑platform support is planned).
+- `git` installed and available in `PATH`.
+- `node` (if Node/TypeScript stack is detected).
 
----
+### Quick start (existing repository)
 
-## ⚙️ Script Reference
+1. Clone or open the target repository locally.
+2. Place the `claudesy-devkit` scripts folder into the root of the repository (or ensure it is reachable):
+   - `scripts/bootstrap.ps1`
+3. Open PowerShell in the repository root:
+   ```powershell
+   .\scripts\bootstrap.ps1
+   ```
+4. Follow the interactive prompts:
+   - Confirm stack detection (Next, Nest, Node, Turbo, etc.).
+   - Approve hook installation.
+   - Confirm workflow injection into `.github/workflows`.
 
-The devkit utilizes PowerShell 7 core scripts.
+5. Commit the injected changes:
+   ```bash
+   git add .github/workflows .githooks package.json
+   git commit -m "chore: onboarded to claudesy-devkit"
+   git push
+   ```
 
-### `.\scripts\bootstrap.ps1` — Full Initialization
-Used to standardize a repo for the first time.
-
-```powershell
-.\scripts\bootstrap.ps1 -TargetRepo "../app-repo" -Stack "AUTO" -Force
-.\scripts\bootstrap.ps1 -TargetRepo "../mono-repo" -Stack "TURBOREPO"
-```
-
-### `.\scripts\sync.ps1` — Update Core Configs
-Updates `.github` workflows and hooks without overwriting `package.json` changes.
-
-```powershell
-.\scripts\sync.ps1 -TargetRepo "../app-repo"
-```
+After this, the repository will:
+- enforce pre‑push checks,
+- run standardized CI and security workflows,
+- and maintain dependencies according to Sentra AI’s policy.
 
 ---
 
-## 🔍 Stack Detection Logic (Path 1)
+## 🧑‍💼 Usage for developers
 
-The automation hub detects the repository type based on standard configuration file priorities:
+### Standard development flow
 
-| Priority | Detection File | Identified Stack | Visual Diagram Reference |
-|----------|------|-------|---|
-| 1 | `turbo.json` | `TURBOREPO` | Turborepo Icon |
-| 2 | `next.config.*` | `NEXTJS` | NextJS Icon |
-| 3 | `nest-cli.json` | `NESTJS` | NestJS Icon |
-| 4 | `package.json` | `NODE` | Node Icon |
+- **Local development**:  
+  Write code as usual; the pre‑push hooks will block pushes that:
+  - contain type errors,
+  - violate linting or formatting rules,
+  - or introduce security‑sensitive patterns.
 
----
+- **Pull requests**:  
+  GitHub Actions will:
+  - run builds and tests,
+  - perform security scans,
+  - and optionally apply automated fixes for non‑breaking issues.
 
-## 📋 Stack-Specific Considerations
+- **Dependencies**:  
+  Renovate will open PRs for:
+  - patch updates (auto‑merged),
+  - minor updates (grouped weekly),
+  - major updates (awaiting manual review).
 
-### Turborepo
-- Configure `TURBO_TOKEN` and `TURBO_TEAM` for effective remote caching.
-- Package manager is dynamically read from the `packageManager` field in `package.json` (pnpm preferred).
-
-### NestJS & Healthcare AI
-- **Prisma:** If detected, `prisma generate` is invoked pre-build.
-- **PHI/PII Security:** Ensure the `@Exclude()` decorator is utilized on all DTOs handling Protected Health Information/Personally Identifiable Information.
-
----
-
-## 🆘 Troubleshooting
-
-**Pre-push hook fails on Windows systems?**
-Run this command in Bash to fix execution permissions:
-```bash
-git config core.hooksPath .git/hooks
-chmod +x .git/hooks/pre-push
-```
-
-**Auto-fix workflow is not triggering?**
-Verify that the `workflows` array in `auto-fix.yml` correctly references the exact name of your main `ci.yml` workflow.
+Developers should:
+- not bypass hooks or disable security‑scan workflows,
+- and consult the engineering or compliance team before merging major‑version dependency changes.
 
 ---
 
-## 📄 Maintenance
+## 🏛 Governance and compliance
 
-Maintained by Sentra AI Engineering Division.
+This toolkit is governed under the **Professor of Law & Medical** framework, ensuring that AI‑development practices at Sentra AI remain aligned with:
+- healthcare‑specific regulations,
+- data‑protection principles,
+- and clinical‑safety requirements.
 
-**Last updated:** 2024-05-20
-```
+### Policy enforcement
+
+- **Workflow templates** are version‑controlled and must not be overridden without explicit governance approval.
+- **Dependency‑management policies** in `Renovate` are periodically audited to reflect:
+  - newly identified vulnerabilities,
+  - regulatory‑related library changes,
+  - and clinical‑workflow requirements.
+
+### Audit and traceability
+
+- Every configuration injected by `claudesy-devkit` is recorded in:
+  - Git commit history,
+  - and optionally, in a centralized audit log managed by the engineering organization.
+- Configuration snapshots are archived so that:
+  - older projects can be reconstructed,
+  - and compliance reviews can reconstruct the state of the toolkit at a given point in time.
+
+### Legal and regulatory notes
+
+- Changes to security, testing, or dependency policies affecting healthcare‑facing components must be:
+  - reviewed by the **regulatory and compliance team**,
+  - and, where applicable, documented in a **risk‑and‑impact assessment**.
+- The Professor of Law & Medical reserves the right to:
+  - freeze or rollback certain updates,
+  - and require enhanced validation steps for modules interacting with clinical or patient‑related data.
+
+---
+
+## 🖼 Virtual character reference
+
+This toolkit is associated with the **virtual persona of Claudesy**, representing the dual role of **Professor of Law & Medical** and **AI architect**. The character is used for:
+- documentation,
+- workflow illustrations,
+- and internal branding of governance‑oriented tooling.
+
+The canonical avatar is stored at:  
+`templates/github/workflows/claudesy.png`  
+
+This image shall be used:
+- only for internal documentation and workflow diagrams,
+- and must not be redistributed outside Sentra AI without explicit permission.
+
+---
+
+## 📜 License and usage rights
+
+`claudesy-devkit` is an internal tool developed and maintained by Sentra Artificial Intelligence. By default, it is:
+- made available to Sentra AI projects under defined internal usage policies,
+- and may not be redistributed or offered as a public product without explicit governance approval and legal review.
+
+---
+
+## 📮 Support and feedback
+
+For questions, bug reports, or policy‑related concerns, contact:
+- **Engineering Governance**: via the internal engineering Slack channel `#sentra-ai-governance`.
+- **Legal & Regulatory**: via the compliance ticketing system or the designated legal‑tech liaison.
+
+Feature proposals and major changes to the toolkit’s behavior must be accompanied by:
+- a brief impact assessment,
+- and, where applicable, a compliance‑checklist review.
+
+---
