@@ -1,214 +1,192 @@
+Here is a professional, comprehensive README for the `claudesy-devkit` repository, formatted according to the Sentra standard and incorporating the workflow paths visualized in the previous step.
+
+```markdown
 # claudesy-devkit
 
-Git workflow scaffold for all Claudesy organization projects.
+Centralized workflow standardization toolkit for Sentra AI developments.
 
-**Description:** Every new Claudesy repository requires identical CI pipelines, security scanning, dependency automation, and pre-push hooks — but manually configuring each repo is expensive and inconsistent. `claudesy-devkit` solves this with a single command: auto-detect your stack, copy all template files, and install hooks. Extracted from the proven automation stack in `abyss-monorepo`.  
-**Principle:** Deterministic tools, minimum agents, maximum coverage. Artificial Intelligence for judgment — not for routine CI.
+**Description:** Ensuring consistent CI/CD pipelines, robust security protocols, and code quality standards across diverse healthcare AI projects is complex and error-prone. `claudesy-devkit` solves this by automating the onboarding of existing repositories, injecting deterministic configurations, pre-push hooks, and dependency management policies tailored to the detected tech stack. This approach provides immediate compliance and standardization without manual setup.
+
+**Principles:** Deterministic tools, minimum configuration, maximum security coverage for healthcare AI.
 
 ---
 
-## 🚀 Quickstart (5 minutes)
+## 🧩 Workflow Overview
 
-### 1. Clone the repo
+`claudesy-devkit` orchestrates repository standardization through four key paths: stack detection, validation hooks installation, automated workflow injection, and dependency maintenance.
 
+```mermaid
+graph TD
+    User[Developer] -->|Executes| Boot[.\scripts\bootstrap.ps1]
+    Boot --> Hub[claudesy-devkit<br/>Automation Hub]
+
+    %% Paths based on visual diagram
+    Hub --> P1[Path 1:<br/>Stack Detection]
+    P1 --> Detect["Analyze:<br/>Turbo / Next / Nest / Node"]
+    Detect -->|Identified| Verified
+
+    Hub --> P2[Path 2:<br/>Hooks Installation]
+    P2 --> Hooks[Pre-push Validation Hooks]
+    Hooks -->|Check| TSC[Type Check]
+    Hooks -->|Check| LNT[Lint ESLint]
+    Hooks -->|Check| FMT[Format Prettier]
+
+    Hub --> P3[Path 3:<br/>Workflow Injection]
+    P3 --> Actions[Configuring GitHub Actions]
+    Actions -->|Inject| W1[ci.yml]
+    Actions -->|Inject| W2[security-scan.yml]
+    Actions -->|Inject| W3[auto-fix.yml]
+    Actions -->|Inject| W4[auto-merge.yml]
+
+    Hub --> P4[Path 4:<br/>Dependency Automation]
+    P4 --> Reno[Initialize Renovate]
+    Reno -->|Policy| Pol1[Patch: Auto-merge]
+    Reno -->|Policy| Pol2[Minor: Weekly Grouped]
+    Reno -->|Policy| Pol3[Major: Manual Review]
+
+    %% Output
+    P1 -.-> Output[Standardized<br/>Sentra AI Repository]
+    P2 -.-> Output
+    P3 -.-> Output
+    P4 -.-> Output
+    Output --> Green[GitHub Status:<br/>All Checks Passed]
+```
+
+---
+
+## 🚀 Quickstart (5 Minutes)
+
+Use this guide to standardize an existing repository.
+
+### 1. Close the Devkit repository
 ```powershell
-git clone https://github.com/Docsynapse/claudesy-devkit.git
+git clone [https://github.com/Claudesy/claudesy-devkit.git](https://github.com/Claudesy/claudesy-devkit.git)
 cd claudesy-devkit
 ```
 
-### 2. Initialize a new project
+### 2. Run the Initialization Script
+Execute the bootstrap script targeting your desired repository.
 
 ```powershell
-.\scripts\generate.ps1 -target ../my-new-repo
+.\scripts\bootstrap.ps1 -TargetRepo "../path/to/your/repo" -Stack "AUTO"
 ```
 
-This script will:
-- Auto-detect your stack (Turborepo / Next.js / NestJS / Node)
-- Copy all workflow files to `.github/workflows/` and `renovate.json`
-- Install pre-push hooks (format + lint + typecheck)
+The automation hub will execute:
+- **Stack Detection:** Auto-detects Turborepo, Next.js, or NestJS environments.
+- **Hook Installation:** Installs pre-push hooks for TypeScript, ESLint, and Prettier.
+- **Workflow Injection:** Copes standardized `.github/workflows` to the target repo.
 
-### 3. Push and watch CI run
+### 3. Push and Verify CI
+Navigate to your target repository, commit the changes made by the devkit, and push.
 
 ```bash
-cd ../my-new-repo
-git add .github/ renovate.json
-git commit -m "chore: add claudesy-devkit CI scaffold"
+cd ../path/to/your/repo
+git add .
+git commit -m "chore: inject standardized devkit workflows"
 git push
 ```
 
-### 4. Configure secrets (recommended)
+### 4. Required Secrets Configuration
+To enable all paths of the CI/CD pipeline (especially Path 3: Security & Auto-Fix), configure the following repository secrets.
 
-| Secret | Purpose | Required? |
-|--------|---------|-----------|
-| `SEMGREP_APP_TOKEN` | Semgrep dashboard & PR comments | Optional |
-| `SNYK_TOKEN` | Snyk vulnerability scan | Optional |
-| `TURBO_TOKEN` | Turborepo remote cache | Turborepo only |
-| `TURBO_TEAM` | Turborepo team identifier | Turborepo only |
+| Secret | Function | Required? |
+|--------|--------|-----------|
+| `SEMGREP_APP_TOKEN` | SAST dashboard integration | Optional |
+| `SNYK_TOKEN` | SCA vulnerability scanning | Optional |
+| `TRUFFLEHOG_REPO_TOKEN` | Verified secret scanning | **Yes** |
+| `TURBO_TOKEN` | Remote Caching (Turborepo only) | Mandatory for Turbo |
+| `TURBO_TEAM` | Team identifier (Turborepo only) | Mandatory for Turbo |
 
-**How to set:** GitHub → Settings → Secrets and variables → Actions
+**Setup Path:** GitHub Repository → Settings → Secrets and variables → Actions
 
-### 5. Enable Renovate (automated dependency updates)
+### 5. Dependency Automation (Renovate)
+Enable the Renovate application to automatically manage dependency updates based on the devkit's predefined policies.
 
-Install the app: https://github.com/apps/renovate  
-Renovate reads `renovate.json` automatically once installed.
-
-> [!IMPORTANT]
-> The `auto-merge.yml` workflow depends on Renovate being installed. Without it, patch PRs will not be created and auto-merge will never trigger.
+Install App: [https://github.com/apps/renovate](https://github.com/apps/renovate)
 
 ---
 
-## 📦 What Gets Installed
+## 📦 Delivered Automation
 
-### GitHub Actions Workflows
+### GitHub Actions Workflows (Path 3)
+| Workflow File | Function | Visualized Components |
+|------|--------|---|
+| `ci.yml` | Full pipeline: build, test, lint. | CI Pipeline flow |
+| `security-scan.yml` | Parallel SAST, DAST, and secret detection. | Semgrep / TruffleHog / Trivy |
+| `auto-fix.yml` | Fixes linting/formatting errors on specific events. | ESLint / Prettier fixes |
+| `auto-merge.yml` | Handles automated merging of non-breaking patches. | Post-CI Auto-merge |
 
-| File | Purpose |
-|------|---------|
-| `ci.yml` | Build, test, lint — triggered on push/PR |
-| `security-scan.yml` | Semgrep SAST + TruffleHog secrets + Trivy container |
-| `auto-fix.yml` | Auto-PR to fix Prettier + ESLint on CI failure |
-| `auto-merge.yml` | Auto-merge Renovate patch PRs after CI passes |
-
-> [!TIP]
-> All four workflows are independent. You can adopt them incrementally — start with `ci.yml` only, then add the others as your team grows.
-
-### Dependency Management
-
-`renovate.json` is configured with:
-- **Patch** updates → auto-merge after CI passes
-- **Minor** updates → grouped weekly PR, manual review
-- **Major** updates → individual PR, mandatory review
-
-### Pre-Push Hooks
-
-Blocks `git push` if any of the following fail:
-- Prettier format check
-- ESLint (zero warnings tolerance)
-- TypeScript typecheck (`tsc --noEmit`)
-
-> [!NOTE]
-> Hooks are skip-aware — if no Prettier config, ESLint config, or `tsconfig.json` is found in the project root, that check is silently skipped rather than erroring.
+### Pre-Push Hooks (Path 2)
+The following validations are enforced locally before allowing a `git push`:
+- **TypeScript Verification:** Prevents type errors.
+- **ESLint Validation:** Enforces code quality rules.
+- **Prettier Formatting:** Ensures consistent code style.
 
 ---
 
 ## ⚙️ Script Reference
 
-### `generate.ps1` — Initialize a new project
+The devkit utilizes PowerShell 7 core scripts.
+
+### `.\scripts\bootstrap.ps1` — Full Initialization
+Used to standardize a repo for the first time.
 
 ```powershell
-.\scripts\generate.ps1 -target ../my-repo
-.\scripts\generate.ps1 -target ../my-repo -stack NEXTJS   # override detection
-.\scripts\generate.ps1 -target ../my-repo -force          # overwrite existing files
+.\scripts\bootstrap.ps1 -TargetRepo "../app-repo" -Stack "AUTO" -Force
+.\scripts\bootstrap.ps1 -TargetRepo "../mono-repo" -Stack "TURBOREPO"
 ```
 
-### `sync.ps1` — Update workflow files in an existing project
+### `.\scripts\sync.ps1` — Update Core Configs
+Updates `.github` workflows and hooks without overwriting `package.json` changes.
 
 ```powershell
-.\scripts\sync.ps1 -target ../my-repo          # skip files with no changes
-.\scripts\sync.ps1 -target ../my-repo -force   # overwrite all
-```
-
-### `validate.ps1` — Verify the setup is correct
-
-```powershell
-.\scripts\validate.ps1                         # check current directory
-.\scripts\validate.ps1 -target ../my-repo
-```
-
-### `detect-stack.ps1` — Detect stack type only
-
-```powershell
-.\scripts\detect-stack.ps1                     # detect in current directory
-.\scripts\detect-stack.ps1 -path ../my-repo    # detect in specific path
-# Output: TURBOREPO | NEXTJS | NESTJS | NODE
+.\scripts\sync.ps1 -TargetRepo "../app-repo"
 ```
 
 ---
 
-## 🔍 Stack Detection Logic
+## 🔍 Stack Detection Logic (Path 1)
 
-| Priority | File Detected | Stack |
-|----------|--------------|-------|
-| 1 | `turbo.json` | `TURBOREPO` |
-| 2 | `next.config.js` / `.ts` / `.mjs` | `NEXTJS` |
-| 3 | `nest-cli.json` | `NESTJS` |
-| 4 | *(none of the above)* | `NODE` |
+The automation hub detects the repository type based on standard configuration file priorities:
 
-> [!NOTE]
-> Turborepo is checked first because a monorepo may contain a Next.js app internally. Checking `turbo.json` first prevents misclassification.
-
----
-
-## 🛠️ Customizing Per-repo
-
-After running `generate.ps1`, these files are yours to edit:
-- **`ci.yml`** — add project-specific jobs (DB migration, health checks, gatekeeper)
-- **`renovate.json`** — add `packageRules` for internal org packages
-- **`.git/hooks/pre-push`** — add project-specific checks
-
-To pull template updates without overwriting your customizations:
-
-```powershell
-.\scripts\sync.ps1 -target ../my-repo
-```
-
-> [!TIP]
-> `sync.ps1` compares file checksums before overwriting. Files you've modified will be skipped unless you pass `-force`.
+| Priority | Detection File | Identified Stack | Visual Diagram Reference |
+|----------|------|-------|---|
+| 1 | `turbo.json` | `TURBOREPO` | Turborepo Icon |
+| 2 | `next.config.*` | `NEXTJS` | NextJS Icon |
+| 3 | `nest-cli.json` | `NESTJS` | NestJS Icon |
+| 4 | `package.json` | `NODE` | Node Icon |
 
 ---
 
-## 📋 Stack-Specific Notes
+## 📋 Stack-Specific Considerations
 
 ### Turborepo
+- Configure `TURBO_TOKEN` and `TURBO_TEAM` for effective remote caching.
+- Package manager is dynamically read from the `packageManager` field in `package.json` (pnpm preferred).
 
-- Set `TURBO_TOKEN` and `TURBO_TEAM` secrets for remote caching
-- `pnpm/action-setup@v4` reads the pnpm version from `packageManager` in `package.json` — do not pin the version manually in the workflow
-- The `HEAD^1` filter is applied automatically — only changed packages are built and tested
-
-### NestJS
-
-- If Prisma is used: add `prisma generate` before the build step in `ci.yml`
-- PHI/PII fields must use the `@Exclude()` decorator — enforced by linter rules
-
-### Next.js
-
-- Build output (`.next/`) is already included in the upload-artifact path
-- `NEXT_PUBLIC_*` environment variables go in GitHub Actions **vars**, not secrets
+### NestJS & Healthcare AI
+- **Prisma:** If detected, `prisma generate` is invoked pre-build.
+- **PHI/PII Security:** Ensure the `@Exclude()` decorator is utilized on all DTOs handling Protected Health Information/Personally Identifiable Information.
 
 ---
 
 ## 🆘 Troubleshooting
 
-**Auto-fix does not trigger after CI fails?**  
-Ensure the workflow name in `auto-fix.yml` exactly matches `name:` in `ci.yml`. This comparison is case-sensitive.
-
-```yaml
-# auto-fix.yml
-workflows: ['CI']   # must match exactly
-```
-
-**Container scan always skips?**  
-Expected behavior — the job only runs when a `Dockerfile` is present in the repository (`hashFiles('**/Dockerfile') != ''`).
-
-**Pre-push hook does not run on Windows?**
-
+**Pre-push hook fails on Windows systems?**
+Run this command in Bash to fix execution permissions:
 ```bash
 git config core.hooksPath .git/hooks
+chmod +x .git/hooks/pre-push
 ```
 
-**Renovate is installed but creates no PRs?**  
-Check that Renovate has repository access: GitHub → Settings → GitHub Apps → Renovate → Repository access.
-
-**`generate.ps1` reports "path not found"?**  
-Run the script from the `claudesy-devkit/` root directory, not from inside `scripts/`.
-
-> [!WARNING]
-> Do not run `generate.ps1 -force` on a repository with existing workflow customizations unless you intend to overwrite them. Use `sync.ps1` instead for safe updates.
+**Auto-fix workflow is not triggering?**
+Verify that the `workflows` array in `auto-fix.yml` correctly references the exact name of your main `ci.yml` workflow.
 
 ---
 
-## 📄 Source
+## 📄 Maintenance
 
-Extracted from `abyss-monorepo` (Claudesy organization).  
-Maintained by Dr. Ferdi Iskandar (CEO, Sentra Artificial Intelligence).
+Maintained by Sentra AI Engineering Division.
 
-**Last updated:** 2026-04-15
+**Last updated:** 2024-05-20
+```
