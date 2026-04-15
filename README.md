@@ -18,7 +18,7 @@
     <td width="30%" align="center" valign="middle">
       <img src="https://github.com/Docsynapse/claudesy-devkit/blob/main/templates/github/workflows/claudesy.png?raw=true" alt="Claudesy" width="220"/>
       <br/><br/>
-      <strong>CLAUDESY</strong>
+      <strong>DR. CLAUDESY</strong>
     </td>
     <td width="70%" valign="top">
       <p><strong>claudesy-devkit</strong> is a deterministic automation suite that standardizes code quality, security, and CI/CD practices across heterogeneous repositories. It guarantees that every healthcare-facing Artificial Intelligence project — regardless of underlying tech stack — inherits the same engineering, safety, and governance posture without manual configuration drift.</p>
