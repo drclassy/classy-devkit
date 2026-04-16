@@ -1,4 +1,4 @@
-# Claudesy-DevKit 2026
+# Avvcenna+
 
 **Centralized Workflow Standardization Toolkit for Healthcare-Oriented Artificial Intelligence Development**
 
@@ -16,14 +16,14 @@
 <table>
   <tr>
     <td width="30%" align="center" valign="middle">
-      <img src="https://github.com/Claudesy/claudesy-devkit/blob/main/templates/github/workflows/claudesy.png?raw=true" alt="Claudesy" width="220"/>
+      <img src="https://github.com/Avvicenna/avvcenna-devkit/blob/main/templates/github/workflows/Avvcenna+.png?raw=true" alt="Avvcenna+" width="220"/>
       <br/><br/>
-      <strong>DR. CLAUDESY</strong>
+      <strong>DR. Avvcenna+</strong>
     </td>
     <td width="70%" valign="top">
-      <p><strong>claudesy-devkit</strong> is a deterministic automation suite that standardizes code quality, security, and CI/CD practices across heterogeneous repositories. It guarantees that every healthcare-facing Artificial Intelligence project — regardless of underlying tech stack — inherits the same engineering, safety, and governance posture without manual configuration drift.</p>
+      <p><strong>avvcenna-devkit</strong> is a deterministic automation suite that standardizes code quality, security, and CI/CD practices across heterogeneous repositories. It guarantees that every healthcare-facing Artificial Intelligence project — regardless of underlying tech stack — inherits the same engineering, safety, and governance posture without manual configuration drift.</p>
       <p>The toolkit detects the underlying stack (TypeScript, Node, Next.js, NestJS, Turborepo, etc.), injects standardized GitHub Actions workflows, installs pre-push validation hooks, and enforces dependency-maintenance policies via Renovate — all in a single bootstrap command.</p>
-      <p>Originally developed under the oversight of the <strong>Professor of Law &amp; Medical</strong> framework, <code>claudesy-devkit</code> reflects a commitment to <strong>regulatory-aware, auditable, and clinically-safe</strong> Artificial Intelligence development. It is released as open tooling for any team building healthcare-adjacent or compliance-sensitive software systems.</p>
+      <p>Originally developed under the oversight of the <strong>Professor of Law &amp; Medical</strong> framework, <code>avvcenna-devkit</code> reflects a commitment to <strong>regulatory-aware, auditable, and clinically-safe</strong> Artificial Intelligence development. It is released as open tooling for any team building healthcare-adjacent or compliance-sensitive software systems.</p>
     </td>
   </tr>
 </table>
@@ -38,7 +38,7 @@ In healthcare-adjacent Artificial Intelligence systems, inconsistent CI/CD pipel
 - reduced auditability across product lines,
 - and increased operational friction between engineering and clinical-legal teams.
 
-`claudesy-devkit` resolves this by bootstrapping repositories with a single deterministic configuration set — eliminating template drift, manual onboarding, and undocumented policy variance.
+`avvcenna-devkit` resolves this by bootstrapping repositories with a single deterministic configuration set — eliminating template drift, manual onboarding, and undocumented policy variance.
 
 ---
 
@@ -46,7 +46,7 @@ In healthcare-adjacent Artificial Intelligence systems, inconsistent CI/CD pipel
 
 | Principle | Description |
 |---|---|
-| **Deterministic Tooling** | Every repository onboarded via `claudesy-devkit` receives the same predictable configuration set. |
+| **Deterministic Tooling** | Every repository onboarded via `avvcenna-devkit` receives the same predictable configuration set. |
 | **Minimum Configuration, Maximum Coverage** | Developers provide minimal input; the kit configures linting, formatting, type-checking, CI workflows, and security scanning. |
 | **Healthcare-Grade Security Baseline** | Security-scan and auto-fix workflows are installed by default, with audit trails compatible with legal, clinical, and regulatory requirements. |
 | **Governance-First** | All policy changes flow through a structured review framework before propagation. |
@@ -55,12 +55,12 @@ In healthcare-adjacent Artificial Intelligence systems, inconsistent CI/CD pipel
 
 ## Complete Workflow Diagram
 
-The following Mermaid diagram captures the **full lifecycle** of `claudesy-devkit` — from repository bootstrapping to production-ready workflows.
+The following Mermaid diagram captures the **full lifecycle** of `avvcenna-devkit` — from repository bootstrapping to production-ready workflows.
 
 ```mermaid
 graph TD
     User[Developer] -->|Executes| Boot[.\\scripts\\bootstrap.ps1]
-    Boot --> Hub[claudesy-devkit<br/>Automation Hub]
+    Boot --> Hub[avvcenna-devkit<br/>Automation Hub]
 
     %% Path 1: Stack detection
     Hub --> P1[Path 1:<br/>Stack Detection]
@@ -155,7 +155,7 @@ The system initializes Renovate with preset policies:
 ### Quick Start (Existing Repository)
 
 1. Clone or open the target repository locally.
-2. Place the `claudesy-devkit` scripts folder into the root of the repository (or ensure it is reachable):
+2. Place the `avvcenna-devkit` scripts folder into the root of the repository (or ensure it is reachable):
    - `scripts/bootstrap.ps1`
 3. Open PowerShell in the repository root and execute:
    ```powershell
@@ -169,7 +169,7 @@ The system initializes Renovate with preset policies:
 5. Commit the injected changes:
    ```bash
    git add .github/workflows .githooks package.json
-   git commit -m "chore: onboarded to claudesy-devkit"
+   git commit -m "chore: onboarded to avvcenna-devkit"
    git push
    ```
 
@@ -212,7 +212,7 @@ This toolkit was designed under the **Professor of Law & Medical** governance fr
 
 ### Audit and Traceability
 
-- Every configuration injected by `claudesy-devkit` is recorded in Git commit history and, optionally, in a centralized audit log managed by the engineering organization.
+- Every configuration injected by `avvcenna-devkit` is recorded in Git commit history and, optionally, in a centralized audit log managed by the engineering organization.
 - Configuration snapshots are archived so that older projects can be reconstructed and compliance reviews can reproduce the toolkit state at any point in time.
 
 ### Legal and Regulatory Notes
@@ -224,7 +224,7 @@ This toolkit was designed under the **Professor of Law & Medical** governance fr
 
 ## License
 
-`claudesy-devkit` is released under the **Apache License 2.0**.
+`avvcenna-devkit` is released under the **Apache License 2.0**.
 
 This means the toolkit is **free to use, modify, distribute, and integrate** — for personal, academic, commercial, or enterprise purposes — provided the terms of the Apache 2.0 license are respected (notably attribution and inclusion of the license notice).
 

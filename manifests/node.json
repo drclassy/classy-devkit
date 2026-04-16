@@ -1,6 +1,6 @@
 {
   "stack": "NODE",
-  "description": "Plain Node.js project configuration overrides for claudesy-devkit",
+  "description": "Plain Node.js project configuration overrides for avvcenna-devkit",
   "ci": {
     "build_command": "pnpm run build",
     "test_command": "pnpm run test",

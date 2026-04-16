@@ -1,4 +1,4 @@
-# claudesy-devkit .gitattributes
+# avvcenna-devkit .gitattributes
 # Shell scripts must stay LF — Windows Git would break them if converted to CRLF
 
 * text=auto

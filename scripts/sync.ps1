@@ -1,8 +1,8 @@
-# sync.ps1 — Claudesy DevKit Template Sync
+# sync.ps1 — Avvcenna+ DevKit Template Sync
 # Compatible: Windows PowerShell 5.1+
 #
 # Updates workflow files and renovate.json in an existing project from the
-# latest claudesy-devkit templates. Does NOT touch pre-push hooks (to avoid
+# latest avvcenna-devkit templates. Does NOT touch pre-push hooks (to avoid
 # disrupting local customizations).
 #
 # Usage:
@@ -27,7 +27,7 @@ function Write-Skip  { param([string]$m) Write-Host "  [--] $m" -ForegroundColor
 
 Write-Host ""
 Write-Host $Separator -ForegroundColor DarkGray
-Write-Host "  claudesy-devkit sync" -ForegroundColor White
+Write-Host "  avvcenna-devkit sync" -ForegroundColor White
 Write-Host $Separator -ForegroundColor DarkGray
 
 # ─── 1. Resolve target ────────────────────────────────────────────────────────

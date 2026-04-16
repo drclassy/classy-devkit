@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# pre-push.sh — Claudesy DevKit Pre-Push Hook
+# pre-push.sh — Avvcenna+ DevKit Pre-Push Hook
 # Compatible: bash, sh (Linux/Mac/CI)
 #
 # Install: Copy to .git/hooks/pre-push and chmod +x .git/hooks/pre-push
@@ -24,7 +24,7 @@ skip()  { echo "  [SKIP] $1"; }
 
 echo ""
 echo "$SEP"
-echo "  claudesy-devkit pre-push checks"
+echo "  avvcenna-devkit pre-push checks"
 echo "$SEP"
 
 # ─── Helper: check if prettier config exists ──────────────────────────────────

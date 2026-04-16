@@ -1,4 +1,4 @@
-# detect-stack.ps1 — Claudesy DevKit Stack Detector
+# detect-stack.ps1 — Avvcenna+ DevKit Stack Detector
 # Compatible: Windows PowerShell 5.1+
 #
 # Detects the project stack type from files in the target directory.

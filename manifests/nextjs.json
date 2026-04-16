@@ -1,6 +1,6 @@
 {
   "stack": "NEXTJS",
-  "description": "Next.js project configuration overrides for claudesy-devkit",
+  "description": "Next.js project configuration overrides for avvcenna-devkit",
   "ci": {
     "build_command": "pnpm run build",
     "test_command": "pnpm run test",

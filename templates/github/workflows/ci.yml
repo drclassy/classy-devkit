@@ -1,6 +1,6 @@
 name: CI
 
-# Generic CI template from claudesy-devkit.
+# Generic CI template from avvcenna-devkit.
 # Proven patterns extracted from abyss-monorepo:
 #   - paths-ignore for docs/assets (skip unnecessary runs)
 #   - HEAD^1 fallback for Turborepo --filter (safe on first commit)

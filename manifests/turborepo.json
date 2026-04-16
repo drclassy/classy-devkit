@@ -1,6 +1,6 @@
 {
   "stack": "TURBOREPO",
-  "description": "Turborepo monorepo configuration overrides for claudesy-devkit",
+  "description": "Turborepo monorepo configuration overrides for avvcenna-devkit",
   "ci": {
     "build_command": "pnpm turbo run build --filter=[HEAD^1]",
     "test_command": "pnpm turbo run test --filter=[HEAD^1]",

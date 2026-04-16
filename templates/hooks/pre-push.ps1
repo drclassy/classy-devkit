@@ -1,4 +1,4 @@
-# pre-push.ps1 — Claudesy DevKit Pre-Push Hook
+# pre-push.ps1 — Avvcenna+ DevKit Pre-Push Hook
 # Compatible: Windows PowerShell 5.1+
 #
 # Install: Copy to .git/hooks/pre-push (no extension) and ensure it's called
@@ -37,7 +37,7 @@ function Write-Fail {
 
 Write-Host ""
 Write-Host $Separator -ForegroundColor DarkGray
-Write-Host "  claudesy-devkit pre-push checks" -ForegroundColor White
+Write-Host "  avvcenna-devkit pre-push checks" -ForegroundColor White
 Write-Host $Separator -ForegroundColor DarkGray
 
 # ─── 1. Prettier Format Check ─────────────────────────────────────────────────

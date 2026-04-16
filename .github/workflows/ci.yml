@@ -1,6 +1,6 @@
 name: CI
 
-# claudesy-devkit eats its own dog food.
+# avvcenna-devkit eats its own dog food.
 # This workflow validates the templates and manifests in this repo.
 
 on:

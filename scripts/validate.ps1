@@ -1,7 +1,7 @@
-# validate.ps1 — Claudesy DevKit Setup Validator
+# validate.ps1 — Avvcenna+ DevKit Setup Validator
 # Compatible: Windows PowerShell 5.1+
 #
-# Checks whether a target project has the claudesy-devkit setup correctly installed.
+# Checks whether a target project has the avvcenna-devkit setup correctly installed.
 # Reports missing items as warnings, not hard errors. Exit code 0 always.
 #
 # Usage:
@@ -50,7 +50,7 @@ function Check-ValidJson {
 
 Write-Host ""
 Write-Host $Separator -ForegroundColor DarkGray
-Write-Host "  claudesy-devkit validate" -ForegroundColor White
+Write-Host "  avvcenna-devkit validate" -ForegroundColor White
 Write-Host "  Target: $TargetPath" -ForegroundColor DarkGray
 Write-Host $Separator -ForegroundColor DarkGray
 Write-Host ""

@@ -1,7 +1,7 @@
-# generate.ps1 — Claudesy DevKit Project Initializer
+# generate.ps1 — Avvcenna+ DevKit Project Initializer
 # Compatible: Windows PowerShell 5.1+
 #
-# Copies all claudesy-devkit template files into a target project directory.
+# Copies all avvcenna-devkit template files into a target project directory.
 # Auto-detects the project stack, or accept an explicit -stack override.
 #
 # Usage:
@@ -30,7 +30,7 @@ function Write-Error2 { param([string]$m) Write-Host "  [ERR] $m" -ForegroundCol
 
 Write-Host ""
 Write-Host $Separator -ForegroundColor DarkGray
-Write-Host "  claudesy-devkit generate" -ForegroundColor White
+Write-Host "  avvcenna-devkit generate" -ForegroundColor White
 Write-Host $Separator -ForegroundColor DarkGray
 
 # ─── 1. Resolve target path ───────────────────────────────────────────────────
@@ -121,7 +121,7 @@ if (-not (Test-Path $GitHooksDir)) {
     # Write a bash-compatible wrapper that calls the PowerShell script
     $HookWrapper = @"
 #!/usr/bin/env bash
-# claudesy-devkit pre-push hook wrapper
+# avvcenna-devkit pre-push hook wrapper
 # Calls pre-push.ps1 on Windows, pre-push.sh on Linux/Mac
 
 if command -v pwsh &> /dev/null; then
@@ -142,7 +142,7 @@ fi
 # ─── 7. Summary ───────────────────────────────────────────────────────────────
 Write-Host ""
 Write-Host $Separator -ForegroundColor DarkGray
-Write-Host "  claudesy-devkit setup complete!" -ForegroundColor Green
+Write-Host "  avvcenna-devkit setup complete!" -ForegroundColor Green
 Write-Host ""
 Write-Host "  Target  : $TargetPath" -ForegroundColor White
 Write-Host "  Stack   : $StackType" -ForegroundColor White

@@ -1,6 +1,6 @@
 {
   "stack": "NESTJS",
-  "description": "NestJS project configuration overrides for claudesy-devkit",
+  "description": "NestJS project configuration overrides for avvcenna-devkit",
   "ci": {
     "build_command": "pnpm run build",
     "test_command": "pnpm run test:cov",
