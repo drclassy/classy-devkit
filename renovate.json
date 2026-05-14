@@ -22,7 +22,7 @@
       "labels": ["major-update", "needs-review"]
     }
   ],
-  "schedule": ["every monday"],
+  "schedule": ["on monday"],
   "prHourlyLimit": 3,
   "prConcurrentLimit": 5,
   "labels": ["dependencies", "renovate"],
@@ -30,6 +30,6 @@
   "rangeStrategy": "bump",
   "lockFileMaintenance": {
     "enabled": true,
-    "schedule": ["every sunday"]
+    "schedule": ["on sunday"]
   }
 }
