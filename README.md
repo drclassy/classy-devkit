@@ -16,7 +16,7 @@
 <table>
   <tr>
     <td width="30%" align="center" valign="middle">
-      <img src="https://camo.githubusercontent.com/58acde4aecd54fcae0775eb1a16248ab03f5ff303e03887e17c895ed0344b987/68747470733a2f2f692e706f7374696d672e63632f727342675633355a2f6472666572646969736b616e6461722e6a7067" alt="Classy+" width="220"/>
+      <img src="https://i.postimg.cc/65j4NjjQ/Mascot.jpg" alt="Classy+" width="220"/>
       <br/><br/>
       <strong>DR. Classy+</strong>
     </td>
